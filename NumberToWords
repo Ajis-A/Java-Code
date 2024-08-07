@@ -1,0 +1,53 @@
+class Solution {
+    public String numberToWords(int num) {
+        if (num == 0) return "Zero";
+       String ValueChart[] = {"", " Thousand ", " Million ", " Billion "};
+        int desigination = 0;
+        //String result="";
+        StringBuilder result = new StringBuilder(); 
+        while (num > 0 ){
+            //int lastThree = num % 1000;
+            // pass last three number to convert
+            String value = hundredToWords(num % 1000);
+            if (!value.equals("")){
+                //result = value+ ValueChart[desigination]+ result;
+                result.insert(0,value+ ValueChart[desigination]);
+            }
+            else{
+                //result = value+ result;
+                result.insert(0,value);
+            }
+            num = num / 1000;
+            desigination++;
+        }
+        //return result.trim();
+        return result.toString().trim();
+       
+    }
+    public  static String hundredToWords(int num) {
+        String ones[] = {"", " One", " Two", " Three", " Four", " Five", " Six", " Seven", " Eight", " Nine", " Ten"};
+        String Teen[] = {""," Eleven", " Twelve", " Thirteen", " Fourteen", " Fifteen", " Sixteen", " Seventeen", " Eighteen", " Nineteen"};
+        String Tens[] = {"","", " Twenty", " Thirty", " Forty", " Fifty", " Sixty", " Seventy", " Eighty", " Ninety"};
+        //String result="";
+        StringBuilder result = new StringBuilder(); 
+        int val = num%100;
+        if (val <= 10){
+            //result +=ones[val];
+            result.append(ones[val]); 
+        }else if (val <= 19){
+            //result +=Teen[val%10];
+            result.append(Teen[val%10]);
+        }else{
+            //result +=Tens[val/10];
+            //result +=ones[val%10];
+            result.append(Tens[val/10]);
+            result.append(ones[val%10]); 
+        }
+        //if (num>99) result = ones[num/100] + " Hundred" + result;
+        if (num>99) result.insert(0,ones[num/100] + " Hundred");
+       
+       // return result.trim();
+       return result.toString().trim();
+    }
+    
+}
